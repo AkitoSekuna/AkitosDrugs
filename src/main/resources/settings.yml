@@ -1,0 +1,692 @@
+drugs:
+
+  # --- HARD DRUGS --- #
+  meth:
+    use-cooldown-seconds: 15
+    message-threshold: 50
+    display-name: "§cMeth"
+    item: SUGAR
+    category: illegal
+    lore:
+      - "§7A powerful crystalline stimulant."
+      - "§cExtremely addictive."
+      - "§7Stay up for days, they said."
+      - "§7Category: §cIllegal"
+    addiction-per-use: 5.5
+    particles:
+      type: SNEEZE
+      count: 50
+      spread: 0.5
+      speed: 0.1
+    positive-effects:
+      - SPEED,1,200
+      - JUMP_BOOST,1,200
+      - STRENGTH,0,200
+    negative-effects:
+      - POISON,2,100
+      - WEAKNESS,0,100
+    messages-low:
+      - "§cMy heart is racing..."
+      - "§cI feel invincible."
+      - "§cMy mind is razor sharp."
+      - "§cIs it getting hot in here?"
+      - "§cI taste metal."
+    messages-high:
+      - "§cI need more."
+      - "§cMy hands won't stop shaking."
+      - "§cWhen did I last eat..."
+      - "§cJust one more time."
+      - "§cMy reflection doesn't look right."
+    messages-cleanse:
+      - "§aI feel slightly more clear headed..."
+      - "§aThe cravings are becoming manageable."
+      - "§aMy hands are steadier now."
+      - "§aI think I can do this."
+      - "§aThe fog is starting to lift."
+
+
+  ketamine:
+    use-cooldown-seconds: 15
+    dissociation:
+      enabled: true
+      duration: 200
+    display-name: "§5Ketamine"
+    item: QUARTZ
+    category: illegal
+    lore:
+      - "§7A powerful dissociative anaesthetic."
+      - "§5Moderately addictive."
+      - "§7The horse tranquilizer experience."
+      - "§7Category: §cIllegal"
+    addiction-per-use: 2.5
+    particles:
+      type: SMOKE
+      count: 30
+      spread: 0.5
+      speed: 0.1
+    positive-effects:
+      - SLOW_FALLING,0,200
+    negative-effects:
+      - SLOWNESS,1,100
+      - MINING_FATIGUE,1,100
+    message-threshold: 50
+    messages-low:
+      - "§aI feel weightless..."
+      - "§aEverything is so far away."
+      - "§aI'm floating."
+      - "§aThe pain is gone."
+      - "§aI feel nothing and it's beautiful."
+    messages-high:
+      - "§cWhere am I..."
+      - "§cI can't remember how I got here."
+      - "§cEverything feels wrong."
+      - "§cI need to find myself."
+      - "§cI'm so lost."
+    messages-cleanse:
+      - "§aReality is coming back."
+      - "§aI feel grounded again."
+      - "§aThe fog is lifting."
+      - "§aI remember who I am."
+      - "§aI'm back."
+
+  heroin:
+    use-cooldown-seconds: 20
+    teleport-effect:
+      enabled: true
+      chance-threshold: 80
+      tp-radius: 20
+      camera-rotation: true
+      inv-shuffle: false
+      blindness: true
+      nausea: false
+      duration-seconds: 3
+    display-name: "§4Heroin"
+    item:  BLACK_DYE
+    category: illegal
+    lore:
+      - "§7A devastating opioid painkiller."
+      - "§4Devastatingly addictive."
+      - "§7Chasing the dragon since '72."
+      - "§7Category: §cIllegal"
+    addiction-per-use: 6.0
+    message-threshold: 50
+    particles:
+      type: SNEEZE
+      count: 30
+      spread: 0.5
+      speed: 0.1
+    positive-effects:
+      - REGENERATION,1,150
+      - SLOW_FALLING,0,150
+      - RESISTANCE,0,150
+    negative-effects:
+      - WITHER,1,100
+      - POISON,0,100
+      - WEAKNESS,1,100
+      - SLOWNESS,1,100
+    messages-low:
+      - "§aA wave of warmth washes over me."
+      - "§aEverything hurts less."
+      - "§aI feel so heavy... in a good way."
+      - "§aNothing matters right now."
+      - "§aI'm floating."
+    messages-high:
+      - "§cI feel sick without it."
+      - "§cMy bones are aching."
+      - "§cI just need one more hit."
+      - "§cI can't stop shaking."
+      - "§cI'll do anything to make this stop."
+    messages-cleanse:
+      - "§aThe sickness is easing."
+      - "§aI forgot what normal felt like."
+      - "§aIt still hurts but less now."
+      - "§aI think I'm going to make it."
+      - "§aI feel human again."
+
+  cocaine:
+    use-cooldown-seconds: 5
+    message-threshold: 50
+    display-name: "§cCocaine"
+    item: WHITE_DYE
+    category: illegal
+    lore:
+      - "§7An intense short-lived stimulant."
+      - "§cHighly addictive."
+      - "§7Straight from Pablo's finest stock."
+      - "§7Category: §cIllegal"
+    addiction-per-use: 4.5
+    particles:
+      type: SNEEZE
+      count: 40
+      spread: 0.3
+      speed: 0.15
+    positive-effects:
+      - SPEED,1,60
+      - STRENGTH,0,60
+      - HASTE,1,60
+    negative-effects:
+      - SLOWNESS,1,100
+      - WEAKNESS,0,100
+      - NAUSEA,0,100
+    messages-low:
+      - "§aI feel on top of the world."
+      - "§aI could close a deal right now."
+      - "§aEverything is moving so fast."
+      - "§aI am absolutely unstoppable."
+      - "§aWall Street wishes it had this energy."
+    messages-high:
+      - "§cWhy is everyone looking at me..."
+      - "§cI need more. Now."
+      - "§cMy heart won't slow down."
+      - "§cI can't come down from this."
+      - "§cI'm so paranoid I can't think straight."
+    messages-cleanse:
+      - "§aThe paranoia is fading."
+      - "§aI can breathe again."
+      - "§aI feel more grounded."
+      - "§aThe crash is passing."
+      - "§aI remember who I was before all this."
+
+  ecstasy:
+    display-name: "§dEcstasy"
+    item: PINK_DYE
+    category: illegal
+    lore:
+      - "§7A powerful empathogen and euphoric."
+      - "§dMildly addictive."
+      - "§7Oh dear Molly..."
+      - "§7Category: §cIllegal"
+    addiction-per-use: 1.5
+    use-cooldown-seconds: 10
+    message-threshold: 50
+    particles:
+      type: HEART
+      count: 20
+      spread: 0.5
+      speed: 0.1
+    positive-effects:
+      - NIGHT_VISION,0,300
+      - SPEED,0,300
+      - REGENERATION,0,300
+    negative-effects:
+      - WEAKNESS,1,100
+      - MINING_FATIGUE,0,100
+      - HUNGER,0,100
+    peace:
+      enabled: true
+      duration: 150
+    aura:
+      enabled: true
+      radius: 5
+      effects:
+        - REGENERATION,0,60
+        - WEAKNESS,0,60
+    messages-low:
+      - "§aI love everyone in this room."
+      - "§aThe music feels like it's inside me."
+      - "§aEverything is so beautiful."
+      - "§aI just want to hug everyone."
+      - "§aI feel so connected to everything."
+    messages-high:
+      - "§cI feel so empty."
+      - "§cWhy does everything feel grey..."
+      - "§cI can't feel anything anymore."
+      - "§cTuesday blues hitting hard."
+      - "§cI just want to feel that again."
+    messages-cleanse:
+      - "§aThe emptiness is fading."
+      - "§aI'm starting to feel like myself."
+      - "§aColors look normal again."
+      - "§aI don't need it to feel connected."
+      - "§aI remember what real happiness feels like."
+
+  # --- MID DRUGS --- #
+  weed:
+    use-cooldown-seconds: 11
+    peace:
+      enabled: true
+      duration: 200
+    message-threshold: 50
+    display-name: "§dWeed"
+    item: DRIED_KELP
+    category: grayzone
+    lore:
+      - "§7A mild cannabis relaxant."
+      - "§dMildly addictive."
+      - "§7WAAASAAAAAAAP!"
+      - "§7Category: §eGray-zone"
+    addiction-per-use: 2.0
+    particles:
+      type: CAMPFIRE_SIGNAL_SMOKE
+      count: 20
+      spread: 0.5
+      speed: 0.0
+    positive-effects:
+      - REGENERATION,0,200
+      - SATURATION,0,200
+      - LUCK,0,200
+    negative-effects:
+      - SLOWNESS,0,100
+      - HUNGER,0,100
+      - MINING_FATIGUE,0,100
+    messages-low:
+      - "§aEverything looks more vivid..."
+      - "§aI feel so relaxed."
+      - "§aI'm so hungry all of a sudden."
+      - "§aTime feels... slower."
+      - "§aThis music sounds incredible."
+    messages-high:
+      - "§cI can't think straight."
+      - "§cI haven't moved in hours."
+      - "§cEverything feels paranoid."
+      - "§cI'm so hungry but I can't move."
+      - "§cWhy is everyone looking at me..."
+    messages-cleanse:
+      - "§aMy head feels clearer."
+      - "§aI don't need it as much anymore."
+      - "§aI feel more motivated."
+      - "§aThe laziness is fading."
+      - "§aI feel like myself again."
+
+  shrooms:
+    display-name: "§2Magic Mushrooms"
+    item: RED_MUSHROOM
+    category: grayzone
+    lore:
+      - "§7A natural psychedelic fungus."
+      - "§2Barely addictive."
+      - "§7Hold on, I am on a call with god."
+      - "§7Category: §eGray-zone"
+    addiction-per-use: 0.5
+    use-cooldown-seconds: 20
+    message-threshold: 90
+    trip:
+      enabled: true
+      duration: 400
+    particles:
+      type: SMOKE
+      count: 20
+      spread: 0.5
+      speed: 0.05
+    positive-effects:
+      - NIGHT_VISION,0,400
+      - SLOW_FALLING,0,400
+      - REGENERATION,0,400
+    negative-effects:
+      - NAUSEA,0,100
+      - WEAKNESS,0,100
+    messages-low:
+      - "§aI can feel the earth breathing."
+      - "§aColors have sounds now."
+      - "§aI understand everything."
+      - "§aTime is moving so strangely."
+      - "§aI am made of the same stuff as stars."
+    messages-high:
+      - "§cWhere does my body end and the world begin..."
+      - "§cI can't tell what's real."
+      - "§cSomething is watching me."
+      - "§cI need this to stop."
+      - "§cI forgot how to be a person."
+    messages-cleanse:
+      - "§aReality is returning."
+      - "§aI remember my name."
+      - "§aThe colors are normal again."
+      - "§aI feel strangely peaceful."
+      - "§aThat was something else entirely."
+
+  lsd:
+    display-name: "§2LSD"
+    item: PAPER
+    category: grayzone
+    lore:
+      - "§7A potent synthetic psychedelic."
+      - "§2Barely addictive."
+      - "§7They said it was for productivity."
+      - "§7Category: §eGray-zone"
+    addiction-per-use: 0.5
+    use-cooldown-seconds: 20
+    message-threshold: 85
+    trip:
+      enabled: true
+      duration: 600
+    inv-shuffle:
+      enabled: true
+      interval-seconds: 30
+      passive-threshold: 70
+    particles:
+      type: SMOKE
+      count: 25
+      spread: 0.5
+      speed: 0.05
+    positive-effects:
+      - NIGHT_VISION,0,600
+      - SLOW_FALLING,0,600
+      - JUMP_BOOST,0,600
+    negative-effects:
+      - NAUSEA,0,100
+      - WEAKNESS,0,100
+    messages-low:
+      - "§bEverything is breathing."
+      - "§bI can see sounds."
+      - "§bTime has stopped making sense."
+      - "§bThe walls are melting."
+      - "§bI am the universe observing itself."
+    messages-high:
+      - "§cWho am I..."
+      - "§cI can't tell what's real anymore."
+      - "§cThe concept of self is an illusion."
+      - "§cI'm dissolving."
+      - "§cI just want to come down."
+    messages-cleanse:
+      - "§aReality is stitching itself back together."
+      - "§aI remember my name."
+      - "§aThe breathing has stopped."
+      - "§aI think I understand something now."
+      - "§aI'm back. I think."
+
+  salvia:
+    display-name: "§2Salvia"
+    item: FERN
+    category: grayzone
+    lore:
+      - "§7A powerful short-acting dissociative."
+      - "§2Barely addictive."
+      - "§7What just happened."
+      - "§7Category: §eGray-zone"
+    addiction-per-use: 0.5
+    use-cooldown-seconds: 30
+    message-threshold: 80
+    teleport-effect:
+      enabled: true
+      chance-threshold: 0
+      tp-radius: 5
+      camera-rotation: true
+      inv-shuffle: true
+      blindness: true
+      nausea: true
+      duration-seconds: 7
+    particles:
+      type: SMOKE
+      count: 15
+      spread: 0.3
+      speed: 0.05
+    positive-effects:
+      - SLOW_FALLING,0,140
+    negative-effects:
+      - WEAKNESS,0,100
+      - NAUSEA,0,100
+    messages-low:
+      - "§6The room just folded in half."
+      - "§6I became a park bench for a second."
+      - "§6Everything is made of triangles."
+      - "§6I was somewhere else entirely."
+      - "§6That was 7 seconds?!"
+    messages-high:
+      - "§cI don't know where I am."
+      - "§cI can't find my hands."
+      - "§cSomething is very wrong."
+      - "§cReality keeps glitching."
+      - "§cI need it to stop."
+    messages-cleanse:
+      - "§aOkay. I'm back."
+      - "§aWhat was that."
+      - "§aI need to sit down."
+      - "§aI'm never doing that again."
+      - "§a...maybe once more."
+
+  antidepressants:
+    display-name: "§9Antidepressants"
+    item: BLUE_DYE
+    category: grayzone
+    lore:
+      - "§7A slow-acting mood stabiliser."
+      - "§9Psychologically addictive."
+      - "§7Day 3: nothing. Day 14: oh."
+      - "§7Category: §eGray-zone"
+    addiction-per-use: 2.0
+    use-cooldown-seconds: 5
+    message-threshold: 60
+    particles:
+      type: HAPPY_VILLAGER
+      count: 10
+      spread: 0.5
+      speed: 0.05
+    positive-effects:
+      - REGENERATION,0,600
+      - ABSORPTION,0,600
+      - RESISTANCE,0,600
+    negative-effects:
+      - WEAKNESS,0,100
+      - MINING_FATIGUE,0,100
+    messages-low:
+      - "§aI feel... stable."
+      - "§aNothing is wrong right now."
+      - "§aThe weight feels lighter today."
+      - "§aI think the fog is clearing."
+      - "§aI didn't notice until now but I feel okay."
+    messages-high:
+      - "§cI feel nothing at all."
+      - "§cNot sad. Not happy. Just... flat."
+      - "§cI can't remember what I used to feel."
+      - "§cI need them to feel normal."
+      - "§cIs this who I am now?"
+    messages-cleanse:
+      - "§aEmotions are returning slowly."
+      - "§aI cried today. It felt good."
+      - "§aI'm starting to feel like myself again."
+      - "§aThe numbness is fading."
+      - "§aI think I'm going to be okay."
+
+  # --- LEGAL --- #
+
+  cigarette:
+    display-name: "§7Cigarette"
+    item: TORCH
+    category: legal
+    lore:
+      - "§7A mild stimulant wrapped in paper."
+      - "§cHighly addictive."
+      - "§7Doctors warned us. We lit up anyway."
+      - "§7Category: §aLegal"
+    addiction-per-use: 4.0
+    use-cooldown-seconds: 5
+    message-threshold: 50
+    particles:
+      type: CAMPFIRE_COSY_SMOKE
+      count: 5
+      spread: 0.2
+      speed: 0.0
+    positive-effects:
+      - SPEED,0,100
+      - HASTE,0,100
+    negative-effects:
+      - HUNGER,0,100
+      - MINING_FATIGUE,0,100
+    messages-low:
+      - "§aAh. There it is."
+      - "§aJust what I needed."
+      - "§aInstant clarity."
+      - "§aOne drag and the world slows down."
+      - "§aI know it's bad. I don't care."
+    messages-high:
+      - "§cI can't focus without one."
+      - "§cMy hands are shaking."
+      - "§cJust one more."
+      - "§cI keep telling myself I'll quit."
+      - "§cI smell like smoke and regret."
+    messages-cleanse:
+      - "§aThe cravings are easing."
+      - "§aI can breathe a little better."
+      - "§aThree days clean."
+      - "§aFood tastes different now."
+      - "§aI don't need it anymore."
+
+  painkillers:
+    display-name: "§2Painkillers"
+    item: COPPER_NUGGET
+    category: legal
+    lore:
+      - "§7Over the counter relief."
+      - "§2Barely addictive."
+      - "§7Take two and call me in the morning."
+      - "§7Category: §aLegal"
+    addiction-per-use: 1.0
+    use-cooldown-seconds: 5
+    message-threshold: 70
+    particles:
+      type: HAPPY_VILLAGER
+      count: 8
+      spread: 0.4
+      speed: 0.05
+    positive-effects:
+      - REGENERATION,0,200
+      - RESISTANCE,0,200
+    negative-effects:
+      - SLOWNESS,0,60
+      - HUNGER,0,60
+    messages-low:
+      - "§aThe ache is fading."
+      - "§aFinally some relief."
+      - "§aI can think clearly again."
+      - "§aOh that's better."
+      - "§aSmall mercies."
+    messages-high:
+      - "§cI need them just to function."
+      - "§cEverything hurts without them."
+      - "§cI've been taking more than I should."
+      - "§cI told myself it was just for the pain."
+      - "§cThe bottle is almost empty again."
+    messages-cleanse:
+      - "§aThe dependence is loosening."
+      - "§aI managed a whole day without."
+      - "§aThe pain is manageable now."
+      - "§aI don't need them as much."
+      - "§aI'm proud of myself."
+
+  melatonin:
+    display-name: "§dMelatonin"
+    item: PURPLE_DYE
+    category: legal
+    lore:
+      - "§7A natural sleep hormone supplement."
+      - "§dVery mildly habit forming."
+      - "§73mg and suddenly it's 11 hours later."
+      - "§7Category: §aLegal"
+    addiction-per-use: 1.5
+    use-cooldown-seconds: 5
+    message-threshold: 80
+    particles:
+      type: DRIPPING_WATER
+      count: 10
+      spread: 0.5
+      speed: 0.05
+    positive-effects:
+      - SLOW_FALLING,0,400
+      - REGENERATION,0,400
+      - BLINDNESS,0,30
+    negative-effects:
+      - SLOWNESS,1,100
+      - MINING_FATIGUE,1,100
+    messages-low:
+      - "§aI feel drowsy in the best way."
+      - "§aEverything is getting softer."
+      - "§aI could sleep for a week."
+      - "§aFinally, some rest."
+      - "§aThe world is slowing down."
+    messages-high:
+      - "§cI can't sleep without it anymore."
+      - "§cI took three last night. Oops."
+      - "§cI feel groggy all day."
+      - "§cIs this what normal sleep feels like?"
+      - "§cI've forgotten how to fall asleep naturally."
+    messages-cleanse:
+      - "§aI slept without it last night."
+      - "§aThe grogginess is lifting."
+      - "§aI'm finding my natural rhythm again."
+      - "§aWoke up on my own today."
+      - "§aI think I'm sleeping better naturally."
+
+  herbal-cigarette:
+    display-name: "§6Herbal Cigarette"
+    item: COPPER_TORCH
+    category: legal
+    lore:
+      - "§7Contains absolutely nothing harmful."
+      - "§6Not addictive at all."
+      - "§7100% tobacco free. 100% pointless."
+      - "§7Category: §aLegal"
+    addiction-per-use: 0.0
+    use-cooldown-seconds: 5
+    message-threshold: 50
+    particles:
+      type: CAMPFIRE_SIGNAL_SMOKE
+      count: 10
+      spread: 0.2
+      speed: 0.0
+    positive-effects: []
+    negative-effects: []
+    messages-low:
+      - "§7...nothing happens."
+      - "§7You feel exactly the same."
+      - "§7Tastes like grass."
+      - "§7Looks cool though."
+      - "§7Worth it for the aesthetic."
+    messages-high:
+      - "§7Still nothing."
+      - "§7You've been smoking grass."
+      - "§7Truly the peak of human achievement."
+      - "§7Not even a placebo effect."
+      - "§7You are beyond help."
+    messages-cleanse:
+      - "§aYou were never addicted."
+      - "§aYou feel fine. You always did."
+      - "§aNothing has changed."
+      - "§aYou put down the grass."
+      - "§aA proud moment for everyone."
+
+  vitamins:
+    display-name: "§aVitamins"
+    item: PRISMARINE_CRYSTALS
+    category: legal
+    lore:
+      - "§7A daily multivitamin supplement."
+      - "§aNot addictive."
+      - "§7Doctors hate this one weird trick."
+      - "§7Category: §aLegal"
+    addiction-per-use: 0.0
+    use-cooldown-seconds: 5
+    message-threshold: 50
+    particles:
+      type: HAPPY_VILLAGER
+      count: 5
+      spread: 0.3
+      speed: 0.05
+    positive-effects:
+      - REGENERATION,0,100
+      - ABSORPTION,0,200
+    negative-effects: []
+    messages-low:
+      - "§aI feel marginally better."
+      - "§aHealthy choices. Go me."
+      - "§aI can feel the vitamins working."
+      - "§aThis is what self care looks like."
+      - "§aDoctor approved. Probably."
+    messages-high:
+      - "§7You can't really get addicted to vitamins."
+      - "§7You take them anyway."
+      - "§7Optimistic health decisions."
+      - "§7Your urine is very expensive."
+      - "§7At least you're trying."
+    messages-cleanse:
+      - "§aYou were never addicted."
+      - "§aYour body is fine."
+      - "§aKeep taking them though."
+      - "§aVitamin D especially."
+      - "§aYou're doing great."
+
+addiction:
+  decay-rate: 0.5
+  decay-interval-seconds: 30
+  withdrawal-interval-seconds: 5
+  positive-duration-scaling: 0.9
+  negative-amplifier-scaling: 2.0

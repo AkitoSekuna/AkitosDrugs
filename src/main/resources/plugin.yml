@@ -1,0 +1,32 @@
+name: AkitosDrugs
+version: 1.1.0
+main: com.akito_sekuna.drugs.Main
+api-version: '1.21'
+description: A comprehensive drug mechanics plugin with addiction, withdrawal and unique effects.
+author: Akito_Sekuna
+website:
+depend: [AkitosCore]
+
+commands:
+  akitosdrugs:
+    description: AkitosDrugs main command
+    aliases: [ad]
+    usage: /akitosdrugs [reload|drugs|addiction|reset|set]
+    permission: akitosdrugs.admin
+  addiction:
+    description: Check your addiction levels
+    usage: /addiction
+
+permissions:
+  akitosdrugs.admin:
+    description: Access to all AkitosDrugs admin commands
+    default: op
+  akitosdrugs.admin.drugs:
+    description: Open the drug admin menu
+    default: op
+  akitosdrugs.admin.addiction:
+    description: View and modify player addictions
+    default: op
+  akitosdrugs.admin.reload:
+    description: Reload AkitosDrugs config
+    default: op
