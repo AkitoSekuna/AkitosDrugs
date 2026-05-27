@@ -17,7 +17,7 @@ A comprehensive drug mechanics plugin with addiction, withdrawal and unique effe
 - 12 drugs across 3 categories (Legal, Gray-zone, Illegal)
 - Per-drug addiction system with decay and withdrawal effects
 - Unique mechanics: dissociation, peace, trip, aura, teleport, inventory shuffle
-- Fully configurable — add new drugs purely via `settings.yml`
+- Fully configurable, add new drugs purely via `settings.yml`
 - Admin commands for managing player addictions
 
 ## Drugs
