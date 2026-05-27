@@ -1,6 +1,6 @@
 # AkitosDrugs
 
-A comprehensive drug mechanics plugin with addiction, withdrawal and unique effects. Nearly fully configurable via `settings.yml` — add new drugs without touching any code.
+A comprehensive drug mechanics plugin with addiction, withdrawal and unique effects. Nearly fully configurable via `settings.yml`; add new drugs without touching any code.
 
 ## Requirements
 - Paper 1.21.11+
