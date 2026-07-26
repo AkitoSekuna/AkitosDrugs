@@ -4,12 +4,12 @@ import com.akito_sekuna.drugs.Main;
 import com.akito_sekuna.drugs.managers.EffectEngine;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +17,12 @@ import java.util.UUID;
 
 public class DrugEffectListener implements Listener {
 
+    private final Main plugin;
     private final Map<UUID, Map<String, Long>> cooldowns = new HashMap<>();
+
+    public DrugEffectListener(Main plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
     public void onRightClick(PlayerInteractEvent event) {
@@ -26,16 +31,14 @@ public class DrugEffectListener implements Listener {
 
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
-
         String drug = getDrugName(item);
         if (drug == null) return;
 
         event.setCancelled(true);
 
-        // cooldown check
         UUID uuid = player.getUniqueId();
         long now = System.currentTimeMillis();
-        long cooldownMs = Main.settingsManager.getUseCooldown(drug) * 1000L;
+        long cooldownMs = plugin.getSettingsManager().getUseCooldown(drug) * 1000L;
 
         cooldowns.putIfAbsent(uuid, new HashMap<>());
         Map<String, Long> playerCooldowns = cooldowns.get(uuid);
@@ -51,24 +54,22 @@ public class DrugEffectListener implements Listener {
 
         playerCooldowns.put(drug, now);
 
-        // consume item
         if (item.getAmount() > 1) {
             item.setAmount(item.getAmount() - 1);
         } else {
             player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
         }
 
-        Main.addictionManager.addScore(player.getUniqueId(), drug,
-                Main.settingsManager.getAddictionPerUse(drug));
-        double scoreAfter = Main.addictionManager.getScore(player.getUniqueId(), drug);
+        plugin.getAddictionManager().addScore(uuid, drug, plugin.getSettingsManager().getAddictionPerUse(drug));
+        double scoreAfter = plugin.getAddictionManager().getScore(uuid, drug);
 
-        EffectEngine.applyPositives(player, drug, scoreAfter);
-        EffectEngine.sendDrugMessages(player, drug, scoreAfter);
+        EffectEngine.applyPositives(player, drug, scoreAfter, plugin.getSettingsManager());
+        EffectEngine.sendDrugMessages(player, drug, scoreAfter, plugin.getSettingsManager());
 
-        Particle particle = Particle.valueOf(Main.settingsManager.getParticleType(drug));
-        int count = Main.settingsManager.getParticleCount(drug);
-        double spread = Main.settingsManager.getParticleSpread(drug);
-        double speed = Main.settingsManager.getParticleSpeed(drug);
+        Particle particle = Particle.valueOf(plugin.getSettingsManager().getParticleType(drug));
+        int count = plugin.getSettingsManager().getParticleCount(drug);
+        double spread = plugin.getSettingsManager().getParticleSpread(drug);
+        double speed = plugin.getSettingsManager().getParticleSpeed(drug);
         player.spawnParticle(particle, player.getLocation().add(0, 1, 0), count, spread, spread, spread, speed);
     }
 

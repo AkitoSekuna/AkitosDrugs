@@ -15,30 +15,29 @@ public class DrugMenu {
 
     private static final Map<UUID, String> activeTabs = new HashMap<>();
     private static final Map<UUID, String> activeSorts = new HashMap<>();
-
     private static final String[] SORT_MODES = {"most-recent", "a-z", "most-addictive"};
 
-    public static void open(Player player) {
+    public static void open(Player player, Main plugin) {
         activeTabs.put(player.getUniqueId(), "illegal");
         activeSorts.put(player.getUniqueId(), "most-recent");
         Inventory menu = Bukkit.createInventory(null, 54, "§8Drug Menu");
         fillBorder(menu);
         fillTabs(menu, "illegal");
         fillSortButton(menu, "most-recent");
-        renderDrugs(menu, "illegal", "most-recent");
+        renderDrugs(menu, "illegal", "most-recent", plugin);
         player.openInventory(menu);
     }
 
-    public static void switchTab(Player player, String tab) {
+    public static void switchTab(Player player, String tab, Main plugin) {
         activeTabs.put(player.getUniqueId(), tab);
         String sort = activeSorts.getOrDefault(player.getUniqueId(), "most-recent");
         Inventory menu = player.getOpenInventory().getTopInventory();
         clearDrugSlots(menu);
         fillTabs(menu, tab);
-        renderDrugs(menu, tab, sort);
+        renderDrugs(menu, tab, sort, plugin);
     }
 
-    public static void cycleSort(Player player) {
+    public static void cycleSort(Player player, Main plugin) {
         String current = activeSorts.getOrDefault(player.getUniqueId(), "most-recent");
         String next = SORT_MODES[(Arrays.asList(SORT_MODES).indexOf(current) + 1) % SORT_MODES.length];
         activeSorts.put(player.getUniqueId(), next);
@@ -46,7 +45,7 @@ public class DrugMenu {
         Inventory menu = player.getOpenInventory().getTopInventory();
         clearDrugSlots(menu);
         fillSortButton(menu, next);
-        renderDrugs(menu, tab, next);
+        renderDrugs(menu, tab, next, plugin);
     }
 
     private static void fillBorder(Inventory menu) {
@@ -56,18 +55,9 @@ public class DrugMenu {
     }
 
     private static void fillTabs(Inventory menu, String activeTab) {
-        menu.setItem(46, makePane(
-                activeTab.equals("legal") ? Material.LIME_STAINED_GLASS_PANE : Material.GREEN_STAINED_GLASS_PANE,
-                "§aLegal"
-        ));
-        menu.setItem(49, makePane(
-                activeTab.equals("grayzone") ? Material.YELLOW_STAINED_GLASS_PANE : Material.ORANGE_STAINED_GLASS_PANE,
-                "§eGray-zone"
-        ));
-        menu.setItem(52, makePane(
-                activeTab.equals("illegal") ? Material.RED_STAINED_GLASS_PANE : Material.BROWN_STAINED_GLASS_PANE,
-                "§cIllegal"
-        ));
+        menu.setItem(46, makePane(activeTab.equals("legal") ? Material.LIME_STAINED_GLASS_PANE : Material.GREEN_STAINED_GLASS_PANE, "§aLegal"));
+        menu.setItem(49, makePane(activeTab.equals("grayzone") ? Material.YELLOW_STAINED_GLASS_PANE : Material.ORANGE_STAINED_GLASS_PANE, "§eGray-zone"));
+        menu.setItem(52, makePane(activeTab.equals("illegal") ? Material.RED_STAINED_GLASS_PANE : Material.BROWN_STAINED_GLASS_PANE, "§cIllegal"));
     }
 
     private static void fillSortButton(Inventory menu, String sortMode) {
@@ -84,42 +74,32 @@ public class DrugMenu {
         menu.setItem(8, button);
     }
 
-    private static void renderDrugs(Inventory menu, String tab, String sortMode) {
+    private static void renderDrugs(Inventory menu, String tab, String sortMode, Main plugin) {
         int[] drugSlots = {10,11,12,13,14,15,16,19,20,21,22,23,24,25,28,29,30,31,32,33,34};
         int index = 0;
-
-        List<String> drugs = getSortedDrugs(tab, sortMode);
-
-        for (String drug : drugs) {
+        for (String drug : getSortedDrugs(tab, sortMode, plugin)) {
             if (index >= drugSlots.length) break;
-
-            ItemStack item = new ItemStack(Main.settingsManager.getItem(drug));
+            ItemStack item = new ItemStack(plugin.getSettingsManager().getItem(drug));
             ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(Main.settingsManager.getDisplayName(drug));
-
-            List<String> lore = new ArrayList<>(Main.settingsManager.getLore(drug));
+            meta.setDisplayName(plugin.getSettingsManager().getDisplayName(drug));
+            List<String> lore = new ArrayList<>(plugin.getSettingsManager().getLore(drug));
             lore.add("");
             lore.add("§8akitosdrugs:" + drug);
             meta.setLore(lore);
-
             item.setItemMeta(meta);
             menu.setItem(drugSlots[index++], item);
         }
     }
 
-    private static List<String> getSortedDrugs(String tab, String sortMode) {
-        List<String> drugs = Main.settingsManager.getDrugNames().stream()
-                .filter(drug -> Main.settingsManager.getCategory(drug).equals(tab))
+    private static List<String> getSortedDrugs(String tab, String sortMode, Main plugin) {
+        List<String> drugs = plugin.getSettingsManager().getDrugNames().stream()
+                .filter(drug -> plugin.getSettingsManager().getCategory(drug).equals(tab))
                 .collect(Collectors.toList());
-
         switch (sortMode) {
-            case "a-z" -> drugs.sort(Comparator.comparing(drug ->
-                    Main.settingsManager.getDisplayName(drug).replaceAll("§.", "")));
-            case "most-addictive" -> drugs.sort(Comparator.comparingDouble(
-                    drug -> -Main.settingsManager.getAddictionPerUse(drug)));
-            default -> Collections.reverse(drugs); // most-recent = reverse config order
+            case "a-z" -> drugs.sort(Comparator.comparing(drug -> plugin.getSettingsManager().getDisplayName(drug).replaceAll("§.", "")));
+            case "most-addictive" -> drugs.sort(Comparator.comparingDouble(drug -> -plugin.getSettingsManager().getAddictionPerUse(drug)));
+            default -> Collections.reverse(drugs);
         }
-
         return drugs;
     }
 

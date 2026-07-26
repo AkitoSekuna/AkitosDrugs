@@ -3,9 +3,9 @@ package com.akito_sekuna.drugs.addiction;
 import com.akito_sekuna.drugs.Main;
 import com.akito_sekuna.drugs.effects.InvShuffleEffect;
 import com.akito_sekuna.drugs.managers.EffectEngine;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,14 +15,22 @@ import java.util.UUID;
 
 public class AddictionManager {
 
+    private final Main plugin;
     private final File file;
     private final FileConfiguration config;
 
-    public AddictionManager(JavaPlugin plugin) {
+    public AddictionManager(Main plugin) {
+        this.plugin = plugin;
         file = new File(Main.getPluginFolder(), "addiction.yml");
         if (!file.exists()) {
-            Main.getPluginFolder().mkdirs();
-            try { file.createNewFile(); } catch (IOException e) { e.printStackTrace(); }
+            if (!Main.getPluginFolder().mkdirs()) {
+                plugin.getLogger().warning("Plugin folder already exists or could not be created.");
+            }
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                plugin.getLogger().severe("Failed to create addiction.yml: " + e.getMessage());
+            }
         }
         config = YamlConfiguration.loadConfiguration(file);
     }
@@ -35,7 +43,6 @@ public class AddictionManager {
         double clamped = Math.max(0, Math.min(100, score));
         if (clamped == 0) {
             config.set(uuid + "." + drug, null);
-            // clean up empty player section
             if (config.contains(uuid.toString()) &&
                     config.getConfigurationSection(uuid.toString()).getKeys(false).isEmpty()) {
                 config.set(uuid.toString(), null);
@@ -48,36 +55,32 @@ public class AddictionManager {
 
     public void decayAll(double rate) {
         for (String uuidKey : config.getKeys(false)) {
+            UUID uuid = UUID.fromString(uuidKey);
             for (String drug : config.getConfigurationSection(uuidKey).getKeys(false)) {
                 double current = config.getDouble(uuidKey + "." + drug);
-                if (current > 0) {
-                    setScore(UUID.fromString(uuidKey), drug, current - rate);
+                if (current <= 0) continue;
 
-                    double newScore = getScore(UUID.fromString(uuidKey), drug);
-                    int oldMilestone = (int)(current / 10);
-                    int newMilestone = (int)(newScore / 10);
+                setScore(uuid, drug, current - rate);
+                double newScore = getScore(uuid, drug);
 
-                    if (newMilestone < oldMilestone) {
-                        org.bukkit.entity.Player player = org.bukkit.Bukkit.getPlayer(UUID.fromString(uuidKey));
-                        if (player != null) {
-                            if (newScore <= 0) {
-                                player.sendMessage("§l§aI am no longer addicted to " + drug + ".");
-                            } else {
-                                EffectEngine.sendCleansingMessage(player, drug);
-                            }
+                int oldMilestone = (int) (current / 10);
+                int newMilestone = (int) (newScore / 10);
+
+                if (newMilestone < oldMilestone) {
+                    org.bukkit.entity.Player player = Bukkit.getPlayer(uuid);
+                    if (player != null) {
+                        if (newScore <= 0) {
+                            player.sendMessage("§l§aI am no longer addicted to " + drug + ".");
+                        } else {
+                            EffectEngine.sendCleansingMessage(player, drug, plugin.getSettingsManager());
                         }
                     }
+                }
 
-                    if (Main.settingsManager.isInvShuffleEnabled(drug) &&
-                            current >= Main.settingsManager.getPassiveShuffleThreshold(drug)) {
-                        org.bukkit.entity.Player player = org.bukkit.Bukkit.getPlayer(UUID.fromString(uuidKey));
-                        if (player != null) InvShuffleEffect.shuffle(player);
-                    }
-
-                    if (current >= Main.settingsManager.getPassiveShuffleThreshold(drug)) {
-                        org.bukkit.entity.Player player = org.bukkit.Bukkit.getPlayer(UUID.fromString(uuidKey));
-                        if (player != null) InvShuffleEffect.shuffle(player);
-                    }
+                if (plugin.getSettingsManager().isInvShuffleEnabled(drug) &&
+                        current >= plugin.getSettingsManager().getPassiveShuffleThreshold(drug)) {
+                    org.bukkit.entity.Player player = Bukkit.getPlayer(uuid);
+                    if (player != null) InvShuffleEffect.shuffle(player);
                 }
             }
         }
@@ -98,6 +101,10 @@ public class AddictionManager {
     }
 
     private void save() {
-        try { config.save(file); } catch (IOException e) { e.printStackTrace(); }
+        try {
+            config.save(file);
+        } catch (IOException e) {
+            plugin.getLogger().severe("Failed to save addiction.yml: " + e.getMessage());
+        }
     }
 }

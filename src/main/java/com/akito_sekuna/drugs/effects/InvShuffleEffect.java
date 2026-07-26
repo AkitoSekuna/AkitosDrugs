@@ -1,6 +1,7 @@
 package com.akito_sekuna.drugs.effects;
 
 import com.akito_sekuna.drugs.Main;
+import com.akito_sekuna.drugs.managers.SettingsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -23,7 +24,8 @@ public class InvShuffleEffect {
     public static void startSession(Player player, String drug, int durationTicks) {
         if (active.containsKey(player.getUniqueId())) return;
 
-        int intervalTicks = Main.settingsManager.getInvShuffleInterval(drug) * 20;
+        SettingsManager settings = Main.getInstance().getSettingsManager();
+        int intervalTicks = settings.getInvShuffleInterval(drug) * 20;
 
         BukkitTask task = Bukkit.getScheduler().runTaskTimer(Main.getInstance(), () -> {
             if (!player.isOnline() || !active.containsKey(player.getUniqueId())) {

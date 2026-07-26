@@ -1,7 +1,7 @@
 package com.akito_sekuna.drugs.effects;
 
-import com.akito_sekuna.drugs.Main;
 import com.akito_sekuna.drugs.managers.DrugEffect;
+import com.akito_sekuna.drugs.managers.SettingsManager;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
@@ -9,9 +9,9 @@ import java.util.List;
 
 public class AuraEffect {
 
-    public static void trigger(Player player, String drug) {
-        int radius = Main.settingsManager.getAuraRadius(drug);
-        List<DrugEffect> effects = Main.settingsManager.getAuraEffects(drug);
+    public static void trigger(Player player, String drug, SettingsManager settings) {
+        int radius = settings.getAuraRadius(drug);
+        List<DrugEffect> effects = settings.getAuraEffects(drug);
 
         player.getWorld().getNearbyEntities(player.getLocation(), radius, radius, radius).stream()
                 .filter(e -> e instanceof Player && !e.equals(player))
